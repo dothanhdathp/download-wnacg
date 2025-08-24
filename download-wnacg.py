@@ -7,8 +7,14 @@ import subprocess
 
 map_img_url = {}
 
+def log_print(*args, sep=' ', end='\n', f='log.txt'):
+    print(*args, sep=sep, end=end)
+
+    with open("log.txt", "a") as f:
+        print(*args, sep=sep, end=end, file=f)
+
 def download_image(url):
-    print("Download file: " + url)
+    log_print("Download file: " + url)
     # Extract the filename from the URL
     filename = os.path.basename(url)
 
@@ -59,11 +65,11 @@ def main():
     # Get URL by download-wnacg.py [url]
     url = sys.argv[1]
     number_page = int(sys.argv[2])
-    print("Get URL: " + url)
+    log_print("Get URL: " + url)
 
     for i in range(1, number_page+1):
         new_url = url.replace("-aid-", "-page-" + str(i) + "-aid-")
-        print("--> " + new_url)
+        log_print("--> " + new_url)
         claim_url(new_url)
 
 main()
